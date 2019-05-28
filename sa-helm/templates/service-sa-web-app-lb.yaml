@@ -3,10 +3,10 @@ kind: Service
 metadata:
   name: {{ include "sa-helm.fullname" . }}
 spec:
-  type: {{ .Values.service.type }}
+  type: {{ .Values.sawebapp.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: 8080
+    - port: {{ .Values.sawebapp.service.port }}
+      targetPort: {{ .Values.sawebapp.service.targetPort }}
       protocol: TCP
   selector:
     app.kubernetes.io/name: {{ include "sa-helm.name" . }}

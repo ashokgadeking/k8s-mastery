@@ -3,13 +3,13 @@ kind: Deployment
 metadata:
   name: {{ include "sa-helm.fullname" . }}
 spec:
-  replicas: {{ .Values.replicaCount }}
-  minReadySeconds: {{ .Values.minReadySeconds }}
+  replicas: {{ .Values.sawebapp.replicaCount }}
+  minReadySeconds: {{ .Values.sawebapp.minReadySeconds }}
   strategy:
-    type: {{ .Values.strategy.type }}
+    type: {{ .Values.sawebapp.strategy.type }}
     rollingUpdate: 
-      maxUnavailable: {{ .Values.strategy.rollingUpdate.maxUnavailable }}
-      maxSurge: {{ .Values.strategy.rollingUpdate.maxSurge }}
+      maxUnavailable: {{ .Values.sawebapp.strategy.rollingUpdate.maxUnavailable }}
+      maxSurge: {{ .Values.sawebapp.strategy.rollingUpdate.maxSurge }}
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ include "sa-helm.name" . }}
@@ -20,8 +20,8 @@ spec:
     spec:
       containers:
         - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: "{{ .Values.sawebapp.image.repository }}:{{ .Values.sawebapp.image.tag }}"
+          imagePullPolicy: {{ .Values.sawebapp.image.pullPolicy }}
           env:
             - name: SA_LOGIC_API_URL
               value: "http://sa-logic"
