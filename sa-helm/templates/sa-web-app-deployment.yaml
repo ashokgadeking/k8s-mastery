@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "sa-helm.fullname" . }}
+  name: {{ include "sa-helm.fullname" . }}-webapp
 spec:
   replicas: {{ .Values.sawebapp.replicaCount }}
   minReadySeconds: {{ .Values.sawebapp.minReadySeconds }}
@@ -12,11 +12,11 @@ spec:
       maxSurge: {{ .Values.sawebapp.strategy.rollingUpdate.maxSurge }}
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "sa-helm.name" . }}
+      app.kubernetes.io/name: {{ include "sa-helm.name" . }}-webapp
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ include "sa-helm.name" . }}
+        app.kubernetes.io/name: {{ include "sa-helm.name" . }}-webapp
     spec:
       containers:
         - name: {{ .Chart.Name }}
@@ -24,6 +24,6 @@ spec:
           imagePullPolicy: {{ .Values.sawebapp.image.pullPolicy }}
           env:
             - name: SA_LOGIC_API_URL
-              value: "http://sa-logic"
+              value: "http://{{ include "sa-helm.fullname" . }}-logic"
           ports:
             - containerPort: 8080

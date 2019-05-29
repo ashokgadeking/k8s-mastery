@@ -1,0 +1,15 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-webapp
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: ashokgadeking.info
+    http:
+      paths:
+      - path: /sentiment
+        backend:
+          serviceName: sa-web-app-lb
+          servicePort: 80

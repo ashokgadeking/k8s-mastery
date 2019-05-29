@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ include "sa-helm.fullname" . }}-ingress
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
+    ingress.kubernetes.com/enable-cors: "true"
+    ingress.kubernetes.com/cors-allow-methods: "*"
+    ingress.kubernetes.com/cors-allow-origin: "*"
+spec:
+  rules:
+  - host: ashokgadeking.info
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: {{ include "sa-helm.fullname" . }}-webapp
+          servicePort: 80

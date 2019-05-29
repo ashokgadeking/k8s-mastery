@@ -27,9 +27,7 @@ Execute a POST on endpoint
 Request body:
 
 ```
-{
-    "sentence": "I hate you!"
-}
+'{"sentence": "I hate you!"}'
 ```
 
 ## Pushing to Docker Hub
